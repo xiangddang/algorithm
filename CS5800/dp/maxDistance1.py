@@ -31,7 +31,7 @@ def max_airtime_distance_first(T, D):
                 max_distance[i] = max(max_distance[i], max_distance[j] + D[i])
     
     # Find the maximum airtime distance over all trampolines.
-    print(max_distance)
+    # print(max_distance)
     return max_distance[-1]
 
 # Example usage:

@@ -40,3 +40,8 @@ T = [1, 3, 4, 7, 10, 13, 14]
 D = [3, 2, 3, 2, 3, 4, 2]
 result = max_airtime_distance(T, D)
 print(result)  # Output: 15
+
+T = [1, 3, 5, 7, 11, 15]
+D = [2, 3, 4, 5, 3, 6]
+result = max_airtime_distance(T, D)
+print(result)  # Output: 16

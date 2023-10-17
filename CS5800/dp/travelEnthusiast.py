@@ -47,17 +47,17 @@ def travelEnthusiast(T, k, S, C):
     max_enjoyment = max(enjoyment[T-1])
     # Get the travel plan
     plan = []
-    day = enjoyment[T-1].index(max_enjoyment)
-    plan.append(day)
+    city = enjoyment[T-1].index(max_enjoyment)
+    plan.append(city)
     for t in range(T-1, 0, -1):
-        day = travel_plan[t][day]
-        plan.append(day)
+        city = travel_plan[t][city]
+        plan.append(city)
 
     plan.reverse()
     plan_string = ""
     for t in range(T):
         if plan[t] == plan[t-1]:
-            plan_string += f"{t + 1}. Day {t + 1}: Stay in City {plan[t] + 1}."
+            plan_string += f"{t + 1}. Day {t + 1}: Stay in City {plan[t] + 1} and explore."
         else:
             plan_string += f"{t + 1}. Day {t + 1}: Move from city {plan[t-1] + 1} to city {plan[t] + 1}."
         if t != T - 1:
