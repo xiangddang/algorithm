@@ -1,24 +1,27 @@
-# QUESTION:
-# You are a travel enthusiast planning a road trip to visit multiple cities. 
-# There are k cities in the region you want to explore. During each day, you can either stay in the city 
-# you are currently in and explore its attractions, or you can choose to move to another city. 
-# You are planning to travel for T days. You have access to a weather forecast for these days, and you also have 
-# information about the cities you plan to visit, allowing you to predict your enjoyment and travel costs.
-# On day number t, you can do one of the following:
-# Stay in city i and enjoy attractions, gaining a satisfaction score of Sti.
-# Move from city i to city j and incur a travel cost of Ctij (which depends on the weather and road conditions).
-# Note that Sti and Ctij are provided in the input for all t, i, and j.
-#Note also that the cost of traveling depends on the day (e.g., fuel costs and road conditions may vary based on the weather forecast).
-# Your goal is to create a travel plan that maximizes your “overall enjoyment” during the trip, 
-# where overall enjoyment is sum of the satisfaction scores you gain minus the costs paid during the travel. 
-# Your plan should be of the form:
-# 1. Day 1: Stay in city 5 and explore. 
-# 2. Day 2: Stay in city 5 and explore. 
-# 3. Day 3: Move from city 5 to city 1. 
-# 4. Day 4: Stay in city 1, and so on.
-# You can start your journey in any city on day 1 and finish in any city on day T, as it does 
-# not affect your overall enjoyment. Design an algorithm that can find the optimal travel plan in O(k2T) time. 
-# (Note that returning just the final overall enjoyment is not enough, and you have to return the plan as well.)
+'''
+QUESTION:
+You are a travel enthusiast planning a road trip to visit multiple cities. 
+There are k cities in the region you want to explore. During each day, you can either stay in the city 
+you are currently in and explore its attractions, or you can choose to move to another city. 
+You are planning to travel for T days. You have access to a weather forecast for these days, and you also have 
+information about the cities you plan to visit, allowing you to predict your enjoyment and travel costs.
+On day number t, you can do one of the following:
+Stay in city i and enjoy attractions, gaining a satisfaction score of Sti.
+Move from city i to city j and incur a travel cost of Ctij (which depends on the weather and road conditions).
+Note that Sti and Ctij are provided in the input for all t, i, and j.
+Note also that the cost of traveling depends on the day (e.g., fuel costs and road conditions may vary based on the weather forecast).
+Your goal is to create a travel plan that maximizes your “overall enjoyment” during the trip, 
+where overall enjoyment is sum of the satisfaction scores you gain minus the costs paid during the travel. 
+Your plan should be of the form:
+1. Day 1: Stay in city 5 and explore. 
+2. Day 2: Stay in city 5 and explore. 
+3. Day 3: Move from city 5 to city 1. 
+4. Day 4: Stay in city 1, and so on.
+You can start your journey in any city on day 1 and finish in any city on day T, as it does 
+not affect your overall enjoyment. Design an algorithm that can find the optimal travel plan in O(k2T) time. 
+(Note that returning just the final overall enjoyment is not enough, and you have to return the plan as well.)
+'''
+
 
 def travelEnthusiast(T, k, S, C):
 

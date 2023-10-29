@@ -1,8 +1,10 @@
-# QUESTION:
-# Given an array A[1...n] of positive integers, compute the length of the longest alternating subsequence. 
-# A sequence P[1..m] is alternating if P[i] < P[i − 1] for every even index i ≥ 2, 
-# and if P[i] > P[i − 1] for every odd index i ≥ 3. For example, in the sequence Solution.
-# (3,1,4,1,5,9,2,6,5,2,5,8) the longest alternating subsequence is (3,1,4,1,5,2,6,5,8) so we should return 9
+'''
+ QUESTION:
+ Given an array A[1...n] of positive integers, compute the length of the longest alternating subsequence. 
+ A sequence P[1..m] is alternating if P[i] < P[i − 1] for every even index i ≥ 2, 
+ and if P[i] > P[i − 1] for every odd index i ≥ 3. For example, in the sequence Solution.
+ (3,1,4,1,5,9,2,6,5,2,5,8) the longest alternating subsequence is (3,1,4,1,5,2,6,5,8) so we should return 9
+'''
 
 def longest_alternating_subsequence_length(A):
     n = len(A)
