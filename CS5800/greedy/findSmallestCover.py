@@ -7,30 +7,35 @@ intervals. Describe and analyze an efficient algorithm to compute the smallest c
 If you use a greedy algorithm, you must prove that it is correct.
 '''
 def find_smallest_cover(intervals):
+    # Base case: if there's only one interval, it covers itself
     if len(intervals) == 1:
         return 1
-    
-    intervals.sort(key=lambda x: x[0])
+    #sort intervals by start values in asc order and final values in desc order
+    intervals.sort(key=lambda x: (x[0], -x[1]))
+    #Initialize variables
     cover = 1
-    
     end = intervals[0][1]
     new_end = end
+    
     for i in range(1, len(intervals)):
         start, finish = intervals[i][0], intervals[i][1]
         if start > end:
+            # If the start is greater than 'new_end', increment 'cover' 
+            # because a new interval is needed to cover this range.
             if start > new_end:
                 cover += 1
                 end = finish
                 new_end = end
             else:
+                # Update 'end' to 'new_end'
                 end = new_end
             
         if start <= end:
             if finish > end and new_end == end:
+                # Only increment cover when start finding a new interval
                 cover += 1
+            # Update 'new_end' to be the maximum of 'new_end' and the finish value of the current interval.
             new_end = max(new_end, finish)
-            
-        print(cover, end, new_end)
         
     return cover
         

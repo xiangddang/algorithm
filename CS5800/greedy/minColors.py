@@ -9,8 +9,9 @@ algorithm, you must prove that it is correct.
 def min_color(intervals):
     if not intervals:
         return 0
-    
-    intervals.sort(key=lambda x: x[0])
+    # Sort the intervals by their start values in asc order
+    # and final values in desc order
+    intervals.sort(key=lambda x: (x[0], -x[1]))
     color_count = 1
     cur_count = color_count
     end = intervals[0][1]
@@ -19,10 +20,15 @@ def min_color(intervals):
         start, finish = intervals[i][0], intervals[i][1]
         
         if start <= end:
+            # If the current interval overlaps with the previous one, increase the current count
             cur_count += 1
+            # Update the color count with the maximum of the current count and the color count
             color_count = max(cur_count, color_count)
+            # Update the end with the minimum of the current end and the finish value of the current interval
             end = min(end, finish)
         else:
+            # If the current interval doesn't overlap with the previous 
+            # one, reset the end and current count
             end = finish
             cur_count = 1
 
