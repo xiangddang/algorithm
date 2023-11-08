@@ -1,10 +1,6 @@
-#
-# @lc app=leetcode id=200 lang=python3
-#
-# [200] Number of Islands
-#
 import collections
-# @lc code=start
+
+# Time limit exceeded
 class Solution:
     def __init__(self):
         self.dirs = [[1, 0], [-1, 0], [0, 1], [0, -1]]
@@ -23,7 +19,7 @@ class Solution:
     
     def bfs(self, grid, i, j, visited):
         q = collections.deque()
-        q.append((i, j))
+        q.append([i, j])
         visited[i][j] = True
         while q:
             x, y = q.popleft()
@@ -37,6 +33,3 @@ class Solution:
                 q.append([next_i, next_j])
                 visited[next_i][next_j] = True
         
-        
-# @lc code=end
-
