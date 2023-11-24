@@ -92,6 +92,8 @@ graph6 = {
     'F': ['B', 'E', 'D']
 }
 
+
+
 print("Graph 1 Minimal Cycle:", dfs_minimal_cycle_finder(graph1))
 print("Graph 2 Minimal Cycle:", dfs_minimal_cycle_finder(graph2))
 print("Graph 3 Minimal Cycle:", dfs_minimal_cycle_finder(graph3))

@@ -71,10 +71,19 @@ graph4 = {
     'M': ['K']
 }
 
+graph5 = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D', 'E'],
+    'C': ['A', 'E'],
+    'D': ['B'],
+    'E': ['B', 'C']
+}
+
 print("Graph 1 Cycle:", dfs_cycle_finder(graph1))
 print("Graph 2 Cycle:", dfs_cycle_finder(graph2))
 print("Graph 3 Cycle:", dfs_cycle_finder(graph3))
 print("Graph 4 Cycle:", dfs_cycle_finder(graph4))
+print("Graph 5 Cycle:", dfs_cycle_finder(graph5))
 
 '''
 def dfs_minimal_cycle_finder(graph):
