@@ -1,37 +1,37 @@
 def dfs_minimal_cycle_finder(graph):
-    def dfs(u, depth):
+    def initialize():
+        return {v: False for v in graph}, {v: None for v in graph}, float('inf'), []
+
+    def update_minimal_cycle(v, u):
         nonlocal min_cycle_length, min_cycle_path
-        visited[u] = True
-        depths[u] = depth
-        for v in graph[u]:
-            if visited[v]:
-                if v != parent[u]:  # 发现循环
-                    cycle_length = depths[u] - depths[v] + 1
-                    if cycle_length < min_cycle_length:
-                        min_cycle_length = cycle_length
-                        # 构建循环路径
-                        cycle_path = []
-                        current = u
-                        while current != v:
-                            cycle_path.append(current)
-                            current = parent[current]
-                        cycle_path.append(v)
-                        cycle_path.reverse()
-                        min_cycle_path = cycle_path
+        cycle = []
+        while u != v:
+            cycle.append(u)
+            u = parent[u]
+        cycle.append(v)
+        cycle.reverse()
+
+        if len(cycle) < min_cycle_length:
+            min_cycle_length, min_cycle_path = len(cycle), cycle
+
+    visited, parent, min_cycle_length, min_cycle_path = initialize()
+    for start_vertex in graph:
+        if visited[start_vertex]:
+            continue
+
+        stack = [start_vertex]
+        while stack:
+            u = stack[-1]
+            if not visited[u]:
+                visited[u] = True
+                for v in graph[u]:
+                    if not visited[v]:
+                        stack.append(v)
+                        parent[v] = u
+                    elif v != parent[u]:  # Back edge found
+                        update_minimal_cycle(v, u)
             else:
-                parent[v] = u
-                dfs(v, depth + 1)
-        visited[u] = False  # 允许节点被重新访问
-
-    visited = {vertex: False for vertex in graph}
-    depths = {vertex: 0 for vertex in graph}
-    parent = {vertex: None for vertex in graph}
-    min_cycle_length = float('inf')
-    min_cycle_path = []
-
-    for vertex in graph:
-        if not visited[vertex]:
-            dfs(vertex, 0)
+                stack.pop()
 
     return min_cycle_path if min_cycle_path else False
 

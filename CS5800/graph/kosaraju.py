@@ -36,6 +36,7 @@ class KosarajuSharir:
         self.get_finishing_times()
         reversed_graph = self.reverse_graph()
         self.visited.clear()
+        print(self.stack)
         while self.stack:
             vertex = self.stack.pop()
             if vertex not in self.visited:

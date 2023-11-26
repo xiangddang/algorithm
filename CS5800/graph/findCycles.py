@@ -12,25 +12,34 @@ an algorithm based on depth-first search that finds a minimal cycle or reports t
 there are no cycles in the graph.
 '''
 def dfs_cycle_finder(graph):
-    def dfs(u, parent, path):
+    def dfs(u, parent):
         visited[u] = True
-        path.append(u)
+
         for v in graph[u]:
             if not visited[v]:
-                cycle = dfs(v, u, path)
+                parent[v] = u
+                cycle = dfs(v, parent)
                 if cycle:
                     return cycle
-            elif v != parent and v in path:
-                cycle_start_index = path.index(v)
-                return path[cycle_start_index:]
-        path.pop()
-        visited[u] = False
+            elif v != parent[u]:
+                cycle = []
+                current = u
+                while current != v and current:
+                    cycle.append(current)
+                    current = parent[current]
+                cycle.append(v)
+                cycle.reverse()
+                return cycle
         return None
     
     visited ={vertex: False for vertex in graph}
-    start_vertex = list(graph.keys())[0]
-    cycle = dfs(start_vertex, None, [])
-    return cycle if cycle else False
+    parent = {vertex: None for vertex in graph}
+    for vertex in graph:
+        if not visited[vertex]:
+            cycle = dfs(vertex, parent)
+            if cycle:
+                return cycle
+    return False
 
 graph1 = {
     'A': ['B', 'C'],
@@ -79,11 +88,11 @@ graph5 = {
     'E': ['B', 'C']
 }
 
-print("Graph 1 Cycle:", dfs_cycle_finder(graph1))
-print("Graph 2 Cycle:", dfs_cycle_finder(graph2))
-print("Graph 3 Cycle:", dfs_cycle_finder(graph3))
-print("Graph 4 Cycle:", dfs_cycle_finder(graph4))
-print("Graph 5 Cycle:", dfs_cycle_finder(graph5))
+print("Graph 1 Cycle:", dfs_cycle_finder(graph1)) # A B D C
+print("Graph 2 Cycle:", dfs_cycle_finder(graph2)) # B D E
+print("Graph 3 Cycle:", dfs_cycle_finder(graph3)) # False
+print("Graph 4 Cycle:", dfs_cycle_finder(graph4)) # A B C
+print("Graph 5 Cycle:", dfs_cycle_finder(graph5)) # A B E C
 
 '''
 def dfs_minimal_cycle_finder(graph):
