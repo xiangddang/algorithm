@@ -1,15 +1,15 @@
-def dfs_minimal_cycle_finder(graph):
+def kosaraju_minimal_cycle_finder(graph):
     def dfs(u, depth):
         nonlocal min_cycle_length, min_cycle_path
         visited[u] = True
         depths[u] = depth
         for v in graph[u]:
             if visited[v]:
-                if v != parent[u]:  # found a cycle
+                if v != parent[u]:  # Found a cycle
                     cycle_length = depths[u] - depths[v] + 1
                     if cycle_length < min_cycle_length:
                         min_cycle_length = cycle_length
-                        # build the cycle path
+                        # Build the cycle path
                         cycle_path = []
                         current = u
                         while current != v:
@@ -31,9 +31,9 @@ def dfs_minimal_cycle_finder(graph):
 
     for vertex in graph:
         if not visited[vertex]:
-            cycle =dfs(vertex, 0)
+            dfs(vertex, 0)
 
-    return min_cycle_path if min_cycle_path else False
+    return min_cycle_path if min_cycle_path else []
 
 # Example usage
 graph1 = {
@@ -101,9 +101,9 @@ graph6 = {
 
 
 
-print("Graph 1 Minimal Cycle:", dfs_minimal_cycle_finder(graph1)) # A B C
-print("Graph 2 Minimal Cycle:", dfs_minimal_cycle_finder(graph2)) # A B E F C
-print("Graph 3 Minimal Cycle:", dfs_minimal_cycle_finder(graph3)) # False
-print("Graph 4 Minimal Cycle:", dfs_minimal_cycle_finder(graph4)) # A B C
-print("Graph 5 Minimal Cycle:", dfs_minimal_cycle_finder(graph5)) # D G H
-print("Graph 6 Minimal Cycle:", dfs_minimal_cycle_finder(graph6)) # D E F
+print("Graph 1 Minimal Cycle:", kosaraju_minimal_cycle_finder(graph1)) # A B C
+print("Graph 2 Minimal Cycle:", kosaraju_minimal_cycle_finder(graph2)) # A B E F C
+print("Graph 3 Minimal Cycle:", kosaraju_minimal_cycle_finder(graph3)) # False
+print("Graph 4 Minimal Cycle:", kosaraju_minimal_cycle_finder(graph4)) # A B C
+print("Graph 5 Minimal Cycle:", kosaraju_minimal_cycle_finder(graph5)) # D G H
+print("Graph 6 Minimal Cycle:", kosaraju_minimal_cycle_finder(graph6)) # D E F
