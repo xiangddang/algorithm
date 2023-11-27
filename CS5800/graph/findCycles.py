@@ -40,6 +40,8 @@ def dfs_cycle_finder(graph):
             if cycle:
                 return cycle
     return False
+        
+        
 
 graph1 = {
     'A': ['B', 'C'],
