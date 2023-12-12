@@ -27,47 +27,45 @@ def find_mst_unique(graph):
         for weight, u, v in edges:
             if find(u) != find(v):
                 union(u, v)
-                mst.add((u, v))
+                mst.add((u, v, weight))
         return mst
+    
+    def total_weight(mst):
+        return sum(weight for _, _, weight in mst)
+    
 
-    # Find the MST of the graph
-    mst = kruskal(graph)
+    original_mst = kruskal(graph)
+    original_weight = total_weight(original_mst)
 
-    # Check for unique edges in the cuts created by removing each edge of the MST
-    for u, v in mst:
-        # Copy graph to modify it
-        graph_copy = {u: dict(neighbors) for u, neighbors in graph.items()}
-        
+    for edge in original_mst:
         # Remove the edge from the graph
-        graph_copy[u].pop(v)
-        graph_copy[v].pop(u)
+        graph[edge[0]].pop(edge[1], None)
+        graph[edge[1]].pop(edge[0], None)
 
-        # Find the cheapest edge that reconnects the cut
-        min_edge = None
-        for vertex, neighbors in graph_copy.items():
-            for neighbor, weight in neighbors.items():
-                if min_edge is None or weight < min_edge[0]:
-                    min_edge = (weight, vertex, neighbor)
+        # Find a new MST with the current edge removed
+        new_mst = kruskal(graph)
+        new_weight = total_weight(new_mst)
 
-        # If there is no edge or the weight of the min edge is greater than the removed edge, it's unique
-        if min_edge is None or min_edge[0] > graph[u][v]:
-            continue
-        else:
-            # Found a non-unique edge, the MST is not unique
+        # If the total weight of the new MST is the same as the original, it's not unique
+        if new_weight == original_weight:
             return False
 
-    # If all edges in the MST are unique, the MST is unique
+        # Add the edge back to the graph for the next iteration
+        graph[edge[0]][edge[1]] = edge[2]
+        graph[edge[1]][edge[0]] = edge[2]
+
+    # If we never found an alternative MST with the same weight, the MST is unique
     return True
 
-# Example usage:
-# Define a graph as an adjacency dictionary where graph[u][v] is the weight of edge (u, v)
-graph = {
+# Example graph
+graph_example = {
     'a': {'b': 1, 'c': 4},
-    'b': {'a': 1, 'c': 2, 'd': 5},
+    'b': {'a': 1, 'c': 2, 'd': 5, 'e': 1},
     'c': {'a': 4, 'b': 2, 'd': 1},
-    'd': {'b': 5, 'c': 1}
+    'd': {'b': 5, 'c': 1, 'e': 2},
+    'e': {'b': 1, 'd': 2}
 }
 
-# Call the function with the graph
-is_mst_unique = find_mst_unique(graph)
-print(is_mst_unique)
+# Check if the MST is unique
+is_unique = find_mst_unique(graph_example)
+print(is_unique)
